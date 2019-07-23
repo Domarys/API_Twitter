@@ -1,0 +1,22 @@
+// @DomarysCorrea_2019
+// domaryscorrea@gmail.com
+// description API_Twitter
+// model description of user
+
+const db = require('./db_conection')
+
+const User = db.sequelize.define('user',{
+    username: {
+      type: db.Sequelize.STRING,
+      primaryKey: true
+    },
+    email: {
+      type: db.Sequelize.STRING
+    },
+    password: {
+      type: db.Sequelize.STRING
+    }
+})
+
+//User.sync({force: true})
+module.exports = User

@@ -1,0 +1,19 @@
+<h3>Postings:</h3>
+
+{{#each posts}}
+    <div class="card">
+        <div class="card-body">
+          <h6>De: {{username}} - {{title}}</h6>
+          <p>{{createdAt}}</p>
+          <p>{{text}}</p>
+          <a href="#">
+            <button class="btn btn-outline-primary btn-sm">Comment</button>
+          </a>
+          <a href="#">
+            <button class="btn btn-outline-primary btn-sm">Delete</button>
+          </a>
+        </div>
+    </div>
+{{else}}
+
+{{/each}}
