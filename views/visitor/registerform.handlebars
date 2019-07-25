@@ -1,4 +1,10 @@
-<form class="" action="/register_sub" method="POST">
+{{#each error}}
+  <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+
+<form class="" action="/visitor/register_sub" method="POST">
   <div class="form-group">
     <label for="posting">Username </label>
       <input class="form-control" type="text" name="username" value="" placeholder="Mary Summers">

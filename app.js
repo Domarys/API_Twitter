@@ -5,6 +5,7 @@
 
 const express = require("express")
 const session = require('express-session')
+const flash = require('req-flash')
 const app = express()
 const path = require("path")
 const handlebars = require('express-handlebars')
@@ -18,6 +19,22 @@ const user = require("./routes/user")
 const visitor = require("./routes/visitor")
 
 // Config
+  // Session
+  app.use(session({
+    secret: "liberatsu4599",
+    resave: true,
+    saveUnitialized: true
+  }))
+  app.use(flash())
+
+
+  // Middleware
+  app.use((req,res,next) => {
+    res.locals.success_msg = req.flash("success_msg")
+    res.locals.error_msg = req.flash("error_msg")
+    next()
+  })
+
   //Template Engine
   app.engine('handlebars', handlebars({defaultLayout: 'main' }))
   app.set('view engine','handlebars')
@@ -32,7 +49,7 @@ const visitor = require("./routes/visitor")
 
 // Public
   app.use(express.static(path.join(__dirname,"public")))
-  
+
 // Routes
   app.use('/user',user)
   app.use('/visitor',visitor)

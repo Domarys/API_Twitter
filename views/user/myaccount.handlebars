@@ -1,0 +1,29 @@
+<a href="/user/post_form/{{idPost}}">
+  <button class="btn btn-outline-dark btn-sm mt-2">Create post</button>
+</a>
+
+<a href="/user/my_account">
+  <button class="btn btn-outline-dark btn-sm mt-2">My account</button>
+</a>
+
+<a href="/user/post_form/{{idPost}}">
+  <button class="btn btn-outline-dark btn-sm mt-2">Logout</button>
+</a>
+{{#if user}}
+<div class="card mt-4">
+  <div class="card-body">
+    <p>Username: {{user.username}}<p>
+    <p>Email: {{user.email}}</p>
+    <p>password: {{user.password}}</p>
+    <a href="/user/post_edit/{{idPost}}">
+      <button class="btn btn-outline-primary btn-sm">Edit</button>
+    </a>
+    <a href="/user/delete_post/{{idPost}}">
+      <button class="btn btn-outline-primary btn-sm">Delete</button>
+    </a>
+    <a href="/user/timeline{{idPost}}">
+      <button class="btn btn-outline-primary btn-sm">Back</button>
+    </a>
+  </div>
+</div>
+{{/if}}

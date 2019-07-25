@@ -2,7 +2,7 @@
   <button class="btn btn-outline-dark btn-sm mt-2">Create post</button>
 </a>
 
-<a href="/user/my_account">
+<a href="/user/post_form/{{idPost}}">
   <button class="btn btn-outline-dark btn-sm mt-2">My account</button>
 </a>
 
@@ -11,24 +11,28 @@
 </a>
 <br>
 <br>
-<h3>Postings:</h3>
+<h3>Coments:</h3>
 
-{{#each posts}}
+{{#each comts}}
     <div class="card mt-4">
         <div class="card-body">
-          <h6>De: {{username}} - {{title}}</h6>
+          <h6>De: {{username}}</h6>
           <p>{{createdAt}}</p>
           <p>{{text}}</p>
-          <a href="/user/comments">
-            <button class="btn btn-outline-primary btn-sm">Comments</button>
+          <a href="/user/comment_form">
+            <button class="btn btn-outline-primary btn-sm">Comment</button>
           </a>
-          <a href="/user/post_edit/{{idPost}}">
+          <a href="/user/comt_edit/{{idComt}}">
             <button class="btn btn-outline-primary btn-sm">Edit</button>
           </a>
-          <a href="/user/delete_post/{{idPost}}">
+          <a href="/user/delete_comment/{{idComt}}">
             <button class="btn btn-outline-primary btn-sm">Delete</button>
           </a>
+          <a href="/user/timeline{{idPost}}">
+            <button class="btn btn-outline-primary btn-sm">Back</button>
+          </a>
         </div>
+
     </div>
 {{else}}
 
