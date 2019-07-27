@@ -5,7 +5,9 @@
 
 const express = require("express")
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 const User = require('../models/User')
+const passport = require("passport")
 
 //main
 router.get('/home', function (req, res){
@@ -32,19 +34,41 @@ router.post('/register_sub', function(req,res){
   if(!req.body.password || req.body.password == undefined || req.body.password == null){
     errors.push({text:"Invalid password"})
   }
+  if(req.body.password != req.body.password2){
+    errors.push({text:"Password not match"})
+  }
   if(errors.length > 0){
     res.render("visitor/registerform",{error: errors})
   } else {
-    User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-    }).then(function(req,res){
-      req.flash("success_msg","Register done, do login")
-      res.redirect('log_form')
-    }).catch(function(err){
-    //  req.flash("error_msg","Error, please try again")
-      res.send("Error " + err)
+
+    User.findOne({where:{'email':req.body.email}}).then((user) => {
+      if(user){
+        //req.flash("error_msg","Email used")
+        res.redirect('/visitor/register_form')
+      } else{
+        const new_user = new User ({
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password
+        })
+        bcrypt.genSalt(10,(err,salt) => {
+            bcrypt.hash(new_user.password,salt,(err, hash) => {
+              if(err) {
+                //req.flash("Error in hashing password")
+                res.redirect('/register_form')
+              }
+              new_user.password = hash
+
+            new_user.save().then(() => {
+              //req.flash("success_msg",Register done")
+              res.redirect('/visitor/log_form')
+            })  .catch(() => {
+               //req.flash("error_msg","Error in register, please try again")
+               res.redirect('/visitor/register_form')
+            })
+          })
+        })
+      }
     })
   }
 })
@@ -53,26 +77,11 @@ router.post('/register_sub', function(req,res){
 router.get('/log_form', function (req, res){
   res.render('visitor/logform')
 })
-router.post('/log_sub', function(req,res){
-  var errors = []
-  if(!req.body.email || req.body.email == undefined || req.body.email == null){
-    errors.push({text:"Invalid email"})
-  }
-  if(!req.body.password || req.body.password == undefined || req.body.password == null){
-    errors.push({text:"Invalid password"})
-  }
-  if(errors.length > 0){
-    res.render("visitor/log_form",{error: errors})
-  } else {
-    User.create({
-      username: req.body.email,
-      password: req.body.password
-    }).then(function(req,res){
-      res.send("/timeline")
-    }).catch(function(err){
-      res.send("Error " + err)
-    })
-  }
+router.post('/log_sub', function(req,res,next){
+  passport.authenticate("local",{
+    successRedirect:"/user/timeline",
+    failureRedirect:"/visitor/home",
+    failureFlash: true
+  })(req,res,next)
 })
-
 module.exports = router

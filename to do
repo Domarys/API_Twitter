@@ -1,8 +1,6 @@
-
->>> session
->>> login
->>> button logout
+>> arrumar nome das rotas
 >>> button delete seletive post and comment
+>> flash?
 
 >>> documentation
 >>> tests?

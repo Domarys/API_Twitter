@@ -1,0 +1,12 @@
+<form class="" action="/user/account_edit_sub" method="POST">
+  <label for="posting">Username </label>
+    <input class="form-control" name="username" value="{{user.username}}" readonly >
+    <br>
+  <label for="posting">Email </label>
+    <input class="form-control" name="email" rows="8" cols="40" value="{{user.email}}"></input>
+    <br>
+  <label for="posting">Password </label>
+    <input class="form-control" name="password" rows="8" cols="40" value="{{user.password}}"></input>
+      <br>
+  <button class="btn btn-primary">Save</button>
+</form>

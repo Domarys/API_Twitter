@@ -17,6 +17,8 @@ const Post = require('./models/Post')
 const Comt = require('./models/Comt')
 const user = require("./routes/user")
 const visitor = require("./routes/visitor")
+const passport = require("passport")
+require("./config/auth")(passport)
 
 // Config
   // Session
@@ -25,6 +27,8 @@ const visitor = require("./routes/visitor")
     resave: true,
     saveUnitialized: true
   }))
+  app.use(passport.initialize())
+  app.use(passport.session())
   app.use(flash())
 
 
@@ -32,6 +36,8 @@ const visitor = require("./routes/visitor")
   app.use((req,res,next) => {
     res.locals.success_msg = req.flash("success_msg")
     res.locals.error_msg = req.flash("error_msg")
+    res.locals.error = req.flash("error")
+    res.locals.user = req.user || null
     next()
   })
 

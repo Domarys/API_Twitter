@@ -15,13 +15,13 @@
     <p>Username: {{user.username}}<p>
     <p>Email: {{user.email}}</p>
     <p>password: {{user.password}}</p>
-    <a href="/user/post_edit/{{idPost}}">
+    <a href="/user/account_edit/{{user.username}}">
       <button class="btn btn-outline-primary btn-sm">Edit</button>
     </a>
-    <a href="/user/delete_post/{{idPost}}">
+    <a href="/user/account_delete/{{user.username}}">
       <button class="btn btn-outline-primary btn-sm">Delete</button>
     </a>
-    <a href="/user/timeline{{idPost}}">
+    <a href="/user/timeline">
       <button class="btn btn-outline-primary btn-sm">Back</button>
     </a>
   </div>

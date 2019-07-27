@@ -8,12 +8,19 @@ const router = express.Router()
 const User = require('../models/User')
 const Post = require('../models/Post')
 const Comt = require('../models/Comt')
+const {logged} = require("../helpers/logged")
 
+// LOGOUT
+router.get("/logout",(req,res) => {
+  req.logout()
+  req.flash("success_msg","Deslogged with sucess")
+  res.redirect("/visitor/home")
+})
 
 // PERFIL ROUTES
 // my_account
-router.get('/my_account', (req, res) => {
-  User.findOne({where:{'username':"Lola"}}).then((user) => {
+router.get('/my_account', logged, (req, res) => {
+  User.findOne({where:{'username':"afawfqwf"}}).then((user) => {
     res.render('user/myaccount',{'user': user})
   }).catch(() => {
     //  req.flash("error_msg","There was a error, please try again.")
@@ -21,9 +28,9 @@ router.get('/my_account', (req, res) => {
   })
 })
 
-// account_edit estamos aqui
-router.get('/account_edit/:idPost', (req,res) => {
-  User.findOne({where:{'username':"Lola"}}).then((user) => {
+// account_edit
+router.get('/account_edit/:username', logged, (req,res) => {
+  User.findOne({where:{'username':"afawfqwf"}}).then((user) => {
     res.render('user/accountedit',{'user': user})
   }).catch(() => {
     //  req.flash("error_msg","There was a error, please try again.")
@@ -41,43 +48,51 @@ router.post('/account_edit_sub', (req,res) => {
   if(errs.length > 0){
     res.render("user/accountedit",{error: errs})
   } else {
-
-    Post.findOne({where:{'idPost':req.body.idPost}
-    }).then((post) => {
+    User.findOne({where:{'username':req.body.username}
+    }).then((userx) => {
       //idPost: pegar is do post
       //username: pegar nome de quem resoponde
-      post.title = req.body.title,
-      post.text =  req.body.text,
+      user.email = req.body.email,
+      user.password =  req.body.password,
       //date:    }).catch(() => {
       //  req.flash("error_msg","There was a error, please try again.")
-      post.save().then(() => {
-        res.redirect('/user/timeline')
-      }).catch(() => {
+      user.save().then(() => {
+        res.redirect('/user/my_account')
+      }).catch((err) => {
         //req.flash("error_msg","There was a error, please try again.")
-        res.send("Error " + erro)
+        res.send("Error " + err)
       })
 
-    }).catch(() => {
+    }).catch((err) => {
       //
       req.flash("error_msg","There was a error, please try again.")
-      res.send("Error " + erro)
+      res.send("Error " + err)
     })
   }
 })
 // account_delete
-
+router.get('/account_delete/:username',logged, (req,res) => {
+  User.destroy({where: {'username':req.params.username}})
+  .then(() => {
+    //req.flash("success_msg","Done with sucess!"
+    res.redirect('/visitor/home')
+  }).catch((err) => {
+    //  req.flash("error_msg","There was a error, please try again.")
+    res.send("Error in delete: " + err)
+  })
+})
 
 
 // POST ROUTES
 // post view
-router.get('/timeline', function (req, res){
+router.get('/timeline', logged, function (req, res){
   Post.findAll({order:[['idPost','DESC']]}).then(function(posts){
     res.render('user/timeline',{posts: posts})
   })
 })
 
 //post inclusion
-router.get('/post_form', function (req, res){
+router.get('/post_form', logged, function (req, res){
   res.render('user/postform')
 })
 router.post('/post_sub', function(req,res){
@@ -108,7 +123,7 @@ router.post('/post_sub', function(req,res){
 })
 
 // post edition
-router.get('/post_edit/:idPost', (req,res) => {
+router.get('/post_edit/:idPost', logged, (req,res) => {
   Post.findOne({where:{'idPost':req.params.idPost}}).then((post) => {
     res.render('user/editform',{'post': post})
   }).catch(() => {
@@ -116,7 +131,7 @@ router.get('/post_edit/:idPost', (req,res) => {
     res.redirect('/user/timeline')
   })
 })
-router.post('/post_edit_sub', (req,res) => {
+router.post('/post_edit_sub', logged, (req,res) => {
   var errors = []
   if(!req.body.title || req.body.title == undefined || req.body.title == null){
     errors.push({text:"Invalid title"})
@@ -152,7 +167,7 @@ router.post('/post_edit_sub', (req,res) => {
 })
 
 //post delete
-router.get('/delete_post/:idPost',(req,res) => {
+router.get('/delete_post/:idPost', logged, (req,res) => {
   Post.destroy({where: {'idPost':req.params.idPost}})
   .then(() => {
     //req.flash("success_msg","Done with sucess!"
