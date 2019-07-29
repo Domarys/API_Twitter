@@ -43,7 +43,6 @@ require("./config/auth")(passport)
 
   //Template Engine
   app.engine('handlebars', handlebars({defaultLayout: 'main' }))
-  app.set('view engine','handlebars')
   //body-parser
   app.use(body_parser.urlencoded({extended: false}))
   app.use(body_parser.json())
@@ -52,6 +51,24 @@ require("./config/auth")(passport)
     host:"localhost",
     dialect: 'mysql'
   })
+  var hbs = handlebars.create({
+    helpers: {
+        compare_usernames: function(username1,username2, options)  {
+
+          if( username1===username2 ) {
+            return options.fn(this);
+          } else {
+            return options.inverse(this);
+          }
+    }
+  },
+    defaultLayout: 'main',
+    partialsDir: ['views/partials/']
+})
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 // Public
   app.use(express.static(path.join(__dirname,"public")))

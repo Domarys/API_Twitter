@@ -1,12 +1,12 @@
-<a href="/user/post_form/{{idPost}}">
+<a href="/user/post_form">
   <button class="btn btn-outline-dark btn-sm mt-2">Create post</button>
 </a>
 
-<a href="/user/post_form/{{idPost}}">
+<a href="/user/my_account">
   <button class="btn btn-outline-dark btn-sm mt-2">My account</button>
 </a>
 
-<a href="/user/post_form/{{idPost}}">
+<a href="/user/logout">
   <button class="btn btn-outline-dark btn-sm mt-2">Logout</button>
 </a>
 <br>
@@ -17,23 +17,45 @@
     <div class="card mt-4">
         <div class="card-body">
           <h6>De: {{username}}</h6>
-          <p>{{createdAt}}</p>
           <p>{{text}}</p>
-          <a href="/user/comment_form">
-            <button class="btn btn-outline-primary btn-sm">Comment</button>
-          </a>
-          <a href="/user/comt_edit/{{idComt}}">
-            <button class="btn btn-outline-primary btn-sm">Edit</button>
-          </a>
-          <a href="/user/delete_comment/{{idComt}}">
-            <button class="btn btn-outline-primary btn-sm">Delete</button>
-          </a>
-          <a href="/user/timeline{{idPost}}">
-            <button class="btn btn-outline-primary btn-sm">Back</button>
-          </a>
+          <small>{{createdAt}}</small>
+          {{#compare_usernames ../namelogged username}}
+          <div class="mt-4">
+            <a href="/user/comment_form/{{idPost}}">
+              <button class="btn btn-outline-primary btn-sm">Comment</button>
+            </a>
+            <a href="/user/comt_edit/{{idComt}}">
+              <button class="btn btn-outline-primary btn-sm">Edit</button>
+            </a>
+            <a href="/user/delete_comment/{{idComt}}">
+              <button class="btn btn-outline-primary btn-sm">Delete</button>
+            </a>
+            <a href="/user/timeline">
+              <button class="btn btn-outline-primary btn-sm">Back</button>
+            </a>
+          </div>
+
+          {{else}}
+          <div class="mt-4">
+            <a href="/user/comment_form/{{idPost}}">
+              <button class="btn btn-outline-primary btn-sm">Comment</button>
+            </a>
+            <a href="/user/timeline">
+              <button class="btn btn-outline-primary btn-sm">Back</button>
+            </a>
+          </div>
+          {{/compare_usernames}}
         </div>
 
     </div>
 {{else}}
+<div class="mt-4">
+  <a href="/user/comment_form/{{idPost}}">
+    <button class="btn btn-outline-primary btn-sm">Comment</button>
+  </a>
+  <a href="/user/timeline">
+    <button class="btn btn-outline-primary btn-sm">Back</button>
+  </a>
+</div>
 
 {{/each}}

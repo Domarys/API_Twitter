@@ -5,8 +5,21 @@
   <label for="posting">Email </label>
     <input class="form-control" name="email" rows="8" cols="40" value="{{user.email}}"></input>
     <br>
-  <label for="posting">Password </label>
-    <input class="form-control" name="password" rows="8" cols="40" value="{{user.password}}"></input>
-      <br>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="posting">Password </label>
+            <input class="form-control" type="password" name="password" value="{{user.password}}" autocomplete="off" required>
+            <br>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="posting">Confirm password </label>
+            <input  class="form-control" type="password" name="password2" value="{{user.password2}}" autocomplete="off" required>
+            <br>
+        </div>
+      </div>
   <button class="btn btn-primary">Save</button>
 </form>
+<a href="/user/timeline">
+  <button class="btn btn-primary mt-2">Back</button>
+</a>
+</div>

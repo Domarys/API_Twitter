@@ -1,4 +1,5 @@
-<a href="/user/post_form/{{idPost}}">
+
+<a href="/user/post_form">
   <button class="btn btn-outline-dark btn-sm mt-2">Create post</button>
 </a>
 
@@ -12,22 +13,31 @@
 <br>
 <br>
 <h3>Postings:</h3>
-
 {{#each posts}}
     <div class="card mt-4">
         <div class="card-body">
-          <h6>De: {{username}} - {{title}}</h6>
-          <p>{{createdAt}}</p>
+          <h6>User: {{username}} - {{title}}</h6>
           <p>{{text}}</p>
-          <a href="/user/comments">
-            <button class="btn btn-outline-primary btn-sm">Comments</button>
-          </a>
-          <a href="/user/post_edit/{{idPost}}">
-            <button class="btn btn-outline-primary btn-sm">Edit</button>
-          </a>
-          <a href="/user/delete_post/{{idPost}}">
-            <button class="btn btn-outline-primary btn-sm">Delete</button>
-          </a>
+          <small>{{createdAt}}</small>
+            {{#compare_usernames ../namelogged username}}
+            <div class="mt-4">
+              <a href="/user/comments/{{idPost}}">
+                <button class="btn btn-outline-primary btn-sm">Comments</button>
+              </a>
+              <a href="/user/post_edit/{{idPost}}">
+                <button class="btn btn-outline-primary btn-sm">Edit</button>
+              </a>
+              <a href="/user/delete_post/{{idPost}}">
+                <button class="btn btn-outline-primary btn-sm">Delete</button>
+              </a>
+            </div>
+            {{else}}
+            <div class="mt-4">
+              <a href="/user/comments/{{idPost}}">
+                <button class="btn btn-outline-primary btn-sm">Comments</button>
+              </a>
+            </div>
+          {{/compare_usernames}}
         </div>
     </div>
 {{else}}

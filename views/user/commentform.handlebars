@@ -1,6 +1,13 @@
-<form class="" action="/user/comment_sub" method="POST">
+<div class="">
+
+
+<form class="" action="/user/comment_sub/{{idPost}}" method="POST">
   <label for="posting">Comment </label>
     <textarea class="form-control" name="text" rows="8" cols="40" placeholder="write here"></textarea>
     <br>
   <button class="btn btn-primary">Save</button>
 </form>
+<a href="/user/comments/{{idPost}}">
+  <button class="btn btn-primary mt-2">Back</button>
+</a>
+</div>

@@ -1,4 +1,4 @@
-<a href="/user/post_form/{{idPost}}">
+<a href="/user/post_form">
   <button class="btn btn-outline-dark btn-sm mt-2">Create post</button>
 </a>
 
@@ -6,7 +6,7 @@
   <button class="btn btn-outline-dark btn-sm mt-2">My account</button>
 </a>
 
-<a href="/user/post_form/{{idPost}}">
+<a href="/user/logout">
   <button class="btn btn-outline-dark btn-sm mt-2">Logout</button>
 </a>
 {{#if user}}
@@ -14,8 +14,7 @@
   <div class="card-body">
     <p>Username: {{user.username}}<p>
     <p>Email: {{user.email}}</p>
-    <p>password: {{user.password}}</p>
-    <a href="/user/account_edit/{{user.username}}">
+    <a href="/user/account_edit">
       <button class="btn btn-outline-primary btn-sm">Edit</button>
     </a>
     <a href="/user/account_delete/{{user.username}}">
