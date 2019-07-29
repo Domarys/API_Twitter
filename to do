@@ -1,7 +1,3 @@
->> arrumar nome das rotas
->>> button delete seletive post and comment
->>> flash
->>> testar sistema
-
->>> documentation
->>> tests?
+>>> verificar mensagens flash
+>>> melhorar layout
+>>> separar handlebars helper
