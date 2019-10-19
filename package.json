@@ -1,0 +1,41 @@
+{
+  "name": "api_twitter",
+  "version": "1.0.0",
+  "description": "contains functions for supporting a basic application similar the twitter",
+  "main": "app.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.16.2",
+    "mysql2": "^1.6.5",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
+    "nodemon": "^1.19.1",
+    "passport-local": "^1.0.0",
+    "passport": "^0.4.0",
+    "req-flash": "^0.0.3",
+    "sequelize": "^5.10.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Domarys/API_Twitter.git"
+  },
+  "keywords": [
+    "twitter",
+    "msg",
+    "social"
+  ],
+  "author": "Domarys Corrêa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Domarys/API_Twitter/issues"
+  },
+  "homepage": "https://github.com/Domarys/API_Twitter#readme"
+}
